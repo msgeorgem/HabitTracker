@@ -27,18 +27,8 @@ public class DBHelper extends SQLiteOpenHelper {
      * Database version. If you change the database schema, you must increment the database version.
      */
     private static final int DATABASE_VERSION = 1;
-
-    /**
-     * Constructs a new instance of {@link DBHelper}.
-     *
-     * @param context of the app
-     */
-    public DBHelper(Context context) {
-        super(context, DATABASE_NAME, null, DATABASE_VERSION);
-    }
     /** URI matcher code for the content URI for the habits table */
     private static final int ITEMS = 100;
-
     /** URI matcher code for the content URI for a single pet in the habits table */
     private static final int ITEM_ID = 101;
     /**
@@ -55,6 +45,15 @@ public class DBHelper extends SQLiteOpenHelper {
         // when a match is found.
         sUriMatcher.addURI(Contract.CONTENT_AUTHORITY, Contract.PATH_ITEMS, ITEMS);
         sUriMatcher.addURI(Contract.CONTENT_AUTHORITY, Contract.PATH_ITEMS +"/#", ITEM_ID);
+    }
+
+    /**
+     * Constructs a new instance of {@link DBHelper}.
+     *
+     * @param context of the app
+     */
+    public DBHelper(Context context) {
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
     /**
@@ -139,12 +138,13 @@ public class DBHelper extends SQLiteOpenHelper {
         final int match = sUriMatcher.match(uri);
         switch (match) {
             case ITEMS:
-                return insertPet(uri, contentValues);
+                return insertHabit(uri, contentValues);
             default:
                 throw new IllegalArgumentException("Insertion is not supported for " + uri);
         }
     }
-    private Uri insertPet(Uri uri, ContentValues values) {
+
+    private Uri insertHabit(Uri uri, ContentValues values) {
 
         // Check that the habit is not null
         String habit = values.getAsString(Contract.HabitEntry.COLUMN_ITEM_HABIT);
