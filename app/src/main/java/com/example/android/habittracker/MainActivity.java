@@ -1,10 +1,8 @@
 package com.example.android.habittracker;
 
-import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
@@ -57,18 +55,4 @@ public class MainActivity extends AppCompatActivity {
         return cursor;
 
     }
-
-    private void insertHabit() {
-
-        // Create a ContentValues object, where column names are the keys
-        ContentValues values = new ContentValues();
-        values.put(COLUMN_ITEM_HABIT, "Dogs");
-        values.put(COLUMN_ITEM_DESCRIPTION, "Runnin");
-        values.put(COLUMN_ITEM_OCCURENCE, Contract.HabitEntry.DAILY);
-        values.put(COLUMN_ITEM_TIME, 7);
-
-        // Insert the new row, returning the primary key value of the new row
-        Uri newUri = getContentResolver().insert(CONTENT_URI, values);
-    }
-
 }
